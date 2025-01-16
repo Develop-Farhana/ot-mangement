@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Operation Schedule Details</title>
+    <link rel="stylesheet" href="css/ot.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Post Operation Schedule Details</h1>
+
+        <!-- Form for adding/updating post operation schedule -->
+        <form id="operationForm">
+            <input type="hidden" id="scheduleId" />
+            <label for="operationType">Operation Type:</label>
+            <input type="text" id="operationType" required /><br>
+
+            <label for="scheduleTime">Schedule Time:</label>
+            <input type="datetime-local" id="scheduleTime" required /><br>
+
+            <label for="surgeon">Surgeon:</label>
+            <input type="text" id="surgeon" required /><br>
+
+            <label for="patientId">Patient ID:</label>
+            <input type="text" id="patientId" required /><br>
+
+            <button type="submit">Add Operation Schedule</button>
+        </form>
+
+        <!-- Table to display operation schedule details -->
+        <h2>Operation Schedule List</h2>
+        <table id="operationList">
+            <thead>
+                <tr>
+                    <th>Operation Type</th>
+                    <th>Schedule Time</th>
+                    <th>Surgeon</th>
+                    <th>Patient ID</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <script type="module" src="js/ot.js"></script>
+</body>
+
+</html>

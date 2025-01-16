@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/admin-dash.css">
+    <link rel="stylesheet" href="css/patient.css">
+    <link rel="stylesheet" href="css/surger.css">
+    <!-- Ensure you use only one stylesheet for styling -->
+</head>
+
+<body>
+    <!-- Side navigation container -->
+    <div class="side-nav">
+        <h3>Admin Menu</h3>
+        <ul>
+            <li><a href="javascript:void(0);" id="manage-doctors-link">Manage Doctors</a></li>
+            <li><a href="javascript:void(0);" id="manage-patients-link">Manage Patients</a></li>
+            <li><a href="javascript:void(0);" id="manage-surgeries-link">Manage Surgeries</a></li>
+            <li><a href="javascript:void(0);" id="logout-link">Logout</a></li>
+        </ul>
+    </div>
+
+    <!-- Main dashboard content -->
+    <div class="dashboard-container">
+        <h2>Admin Dashboard</h2>
+
+        <!-- Manage Doctors Section -->
+        <div id="manage-doctors" class="content-section">
+            <div class="container">
+                <h2>Doctor Details</h2>
+
+                <!-- Form for adding/updating doctor details -->
+                <form id="doctor-form">
+                    <input type="hidden" id="doctor-id">
+                    <input type="text" id="doctor-name" placeholder="Doctor Name" required>
+                    <input type="text" id="doctor-specialty" placeholder="Specialty" required>
+                    <input type="text" id="doctor-phone" placeholder="Phone Number" required>
+                    <button type="submit" id="submit-btn">Add Doctor</button>
+                </form>
+
+                <h3>Doctor List</h3>
+                <table id="doctor-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Specialty</th>
+                            <th>Phone Number</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="doctor-list"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Manage Patients Section -->
+        <div id="manage-patients" class="content-section">
+            <div class="container">
+                <h1>Patient Details</h1>
+
+                <!-- Form for adding/updating patient details -->
+                <form id="patientForm">
+                    <input type="hidden" id="patientId" />
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" required /><br>
+
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" required /><br>
+
+                    <label for="medicalHistory">Medical History:</label>
+                    <textarea id="medicalHistory" required></textarea><br>
+
+                    <button type="submit">Add Patient</button>
+                </form>
+
+                <!-- Table to display patient details -->
+                <h2>Patient List</h2>
+                <table id="patientList">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Medical History</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Manage Surgeries Section -->
+        <div id="manage-surgeries" class="content-section">
+            <div class="container">
+
+
+                <!-- Form for adding surgery details -->
+                <form id="surgeryForm">
+                    <input type="hidden" id="surgeryId" />
+                    <label for="surgeryType">Surgery Type:</label>
+                    <input type="text" id="surgeryType" required />
+
+                    <label for="surgeryDate">Surgery Date:</label>
+                    <input type="date" id="surgeryDate" required />
+
+                    <label for="surgeon">Surgeon:</label>
+                    <input type="text" id="surgeon" required />
+
+                    <label for="anesthesiaType">Anesthesia Type:</label>
+                    <input type="text" id="anesthesiaType" required />
+
+                    <label for="surgeryDuration">Surgery Duration (hours):</label>
+                    <input type="number" id="surgeryDuration" required />
+
+                    <button type="submit">Add Surgery Details</button>
+                </form>
+
+                <!-- Table to display surgery details -->
+                <h2>Surgery List</h2>
+                <table id="surgeryTable">
+                    <thead>
+                        <tr>
+                            <th>Surgery Type</th>
+                            <th>Surgery Date</th>
+                            <th>Surgeon</th>
+                            <th>Anesthesia Type</th>
+                            <th>Surgery Duration</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    <!-- Correcting typos in the script tag -->
+    <script type="module" src="js/admin-dash.js"></script>
+    <script type="module" src="js/doctor.js"></script>
+    <script type="module" src="js/patient.js"></script>
+    <script type="module" src="js/surgery.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+Admin
+Login
+Manage Doctor Details
+Manage patient Details
+Post Operation Schedule Details
+
+User 
+Register
+Login
+View Doctor Details
+View surgical Information

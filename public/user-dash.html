@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor CRUD</title>
+    <link rel="stylesheet" href="css/doctor.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Doctor Details</h2>
+
+        <!-- Form for adding/updating doctor details -->
+        <form id="doctor-form">
+            <input type="hidden" id="doctor-id">
+            <input type="text" id="doctor-name" placeholder="Doctor Name" required>
+            <input type="text" id="doctor-specialty" placeholder="Specialty" required>
+            <input type="text" id="doctor-phone" placeholder="Phone Number" required>
+            <button type="submit" id="submit-btn">Add Doctor</button>
+        </form>
+
+        <h3>Doctor List</h3>
+        <table id="doctor-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Specialty</th>
+                    <th>Phone Number</th>
+
+                </tr>
+            </thead>
+            <tbody id="doctor-list"></tbody>
+        </table>
+    </div>
+
+    <script type="module" src="js/doctor.js"></script>
+</body>
+
+</html>
