@@ -17,7 +17,6 @@
             position: fixed;
             right: 20px;
             top: 100px;
-            /* Adjust based on your design */
             background-color: #f0f0f0;
             padding: 15px;
             border-radius: 10px;
@@ -37,6 +36,7 @@
             font-size: 1rem;
             margin: 5px 0;
         }
+        /* Styling for the content sections */
         
         .content-section {
             display: none;
@@ -47,7 +47,7 @@
 <body>
     <!-- Side navigation container -->
     <div class="side-nav">
-        <h3>Admin Menu</h3>
+        <h3 style="color: white;">Admin Menu</h3>
         <ul>
             <li><a href="javascript:void(0);" id="manage-doctors-link">Manage Doctors</a></li>
             <li><a href="javascript:void(0);" id="manage-patients-link">Manage Patients</a></li>
@@ -56,17 +56,17 @@
         </ul>
     </div>
 
-    <!-- Widget Container for Totals -->
-    <div id="widget-container" class="widget-container">
-        <h3>Total Overview</h3>
-        <p id="total-doctors">Doctors: 0</p>
-        <p id="total-surgeries">Surgeries: 0</p>
-        <p id="total-patients">Patients: 0</p>
-    </div>
-
     <!-- Main dashboard content -->
     <div class="dashboard-container">
         <h2>Admin Dashboard</h2>
+
+        <!-- Default Content Section -->
+        <div id="default-content" class="content-section">
+            <div class="container">
+                <h2>Welcome to the Admin Dashboard</h2>
+                <p>Please select a section from the menu to get started.</p>
+            </div>
+        </div>
 
         <!-- Manage Doctors Section -->
         <div id="manage-doctors" class="content-section">
@@ -185,56 +185,46 @@
     <script type="module" src="js/patient.js"></script>
     <script type="module" src="js/surgery.js"></script>
 
+    <!-- JavaScript to control content visibility -->
     <script>
-        // Example of updating the widget with total counts (from Firebase or a mock function)
-        function updateWidget(totalDoctors, totalSurgeries, totalPatients) {
-            document.getElementById('total-doctors').textContent = `Doctors: ${totalDoctors}`;
-            document.getElementById('total-surgeries').textContent = `Surgeries: ${totalSurgeries}`;
-            document.getElementById('total-patients').textContent = `Patients: ${totalPatients}`;
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+            // Hide all content sections initially
+            const sections = document.querySelectorAll(".content-section");
+            sections.forEach(section => section.style.display = "none");
 
-        // Function to show the widget when nothing is selected
-        function showWidgetOnEmpty() {
-            // Hide all content sections
-            document.querySelectorAll('.content-section').forEach(section => section.style.display = 'none');
+            // Show the default content section
+            const defaultContent = document.getElementById("default-content");
+            if (defaultContent) {
+                defaultContent.style.display = "block";
+            }
 
-            // Show the widget
-            document.getElementById('widget-container').style.display = 'block';
+            // Add event listeners for the menu items
+            const manageDoctorsLink = document.getElementById("manage-doctors-link");
+            const managePatientsLink = document.getElementById("manage-patients-link");
+            const manageSurgeriesLink = document.getElementById("manage-surgeries-link");
 
-            // Example values for counts
-            const totalDoctors = 25; // You will fetch these from the database
-            const totalSurgeries = 50;
-            const totalPatients = 150;
+            manageDoctorsLink.addEventListener("click", function() {
+                showSection("manage-doctors");
+            });
 
-            // Update the widget with these values
-            updateWidget(totalDoctors, totalSurgeries, totalPatients);
-        }
+            managePatientsLink.addEventListener("click", function() {
+                showSection("manage-patients");
+            });
 
-        // Call this function by default to show the widget when nothing is selected
-        showWidgetOnEmpty();
+            manageSurgeriesLink.addEventListener("click", function() {
+                showSection("manage-surgeries");
+            });
 
-        // Handle the navigation links
-        document.getElementById('manage-doctors-link').addEventListener('click', function() {
-            document.getElementById('widget-container').style.display = 'none';
-            document.getElementById('manage-doctors').style.display = 'block';
-            document.getElementById('manage-patients').style.display = 'none';
-            document.getElementById('manage-surgeries').style.display = 'none';
-        });
-
-        document.getElementById('manage-patients-link').addEventListener('click', function() {
-            document.getElementById('widget-container').style.display = 'none';
-            document.getElementById('manage-doctors').style.display = 'none';
-            document.getElementById('manage-patients').style.display = 'block';
-            document.getElementById('manage-surgeries').style.display = 'none';
-        });
-
-        document.getElementById('manage-surgeries-link').addEventListener('click', function() {
-            document.getElementById('widget-container').style.display = 'none';
-            document.getElementById('manage-doctors').style.display = 'none';
-            document.getElementById('manage-patients').style.display = 'none';
-            document.getElementById('manage-surgeries').style.display = 'block';
+            function showSection(sectionId) {
+                sections.forEach(section => section.style.display = "none");
+                const selectedSection = document.getElementById(sectionId);
+                if (selectedSection) {
+                    selectedSection.style.display = "block";
+                }
+            }
         });
     </script>
+
 </body>
 
 </html>

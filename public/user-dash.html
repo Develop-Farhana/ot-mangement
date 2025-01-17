@@ -190,6 +190,73 @@
             letter-spacing: 1px;
             /* Add spacing between letters */
         }
+        /* Section 3 - Logout styling */
+        
+        #section3 {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        #section3 h2 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+            animation: slideIn 1s ease-out;
+        }
+        
+        #section3 button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            animation: fadeInButton 1s ease-out;
+        }
+        
+        #section3 button:hover {
+            background-color: #0056b3;
+            transform: scale(1.1);
+        }
+        /* Animation keyframes */
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes fadeInButton {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 
@@ -198,7 +265,7 @@
     <div class="navbar">
         <a onclick="showData('section1')">Doctor Details</a>
         <a onclick="showData('section2')">Surgery Details</a>
-        <a onclick="showData('section3')">Other Details</a>
+        <a onclick="showData('section3')">Logout</a>
     </div>
 
     <!-- Banner Section -->
@@ -226,8 +293,8 @@
             </div>
         </div>
         <div id="section3" class="data-section">
-            <h2>Other Details</h2>
-            <p>Additional information and resources.</p>
+            <h2>Logout</h2>
+            <button onclick="logout()">Logout</button>
         </div>
 
     </div>
@@ -254,6 +321,14 @@
 
         // Initially show the first section
         showData('section1');
+
+        function logout() {
+            // Clear any session data or local storage if needed
+            localStorage.removeItem('userLoggedIn'); // Assuming you store user login status in local storage
+
+            // Redirect the user to the login page or home page
+            window.location.href = 'user.html'; // Change to your login page URL
+        }
     </script>
 
     <script type="module" src="js/doct-details.js"></script>
