@@ -183,3 +183,129 @@ table tr:hover {
         font-size: 14px;
     }
 }
+
+
+/* Button Styles */
+
+.edit-btn {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.edit-btn:hover {
+    background-color: darkgreen;
+}
+
+.delete-btn {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.delete-btn:hover {
+    background-color: darkred;
+}
+
+
+/* Style for the buttons */
+
+button {
+    padding: 8px 16px;
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+
+/* Edit button */
+
+button.edit {
+    background-color: #4CAF50;
+    /* Green */
+    color: white;
+}
+
+button.edit:hover {
+    background-color: #45a049;
+    /* Darker Green on Hover */
+    transform: scale(1.05);
+    /* Slightly enlarge the button on hover */
+}
+
+button.edit:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.6);
+    /* Glow effect on focus */
+}
+
+
+/* Delete button */
+
+button.delete {
+    background-color: #f44336;
+    /* Red */
+    color: white;
+}
+
+button.delete:hover {
+    background-color: #e53935;
+    /* Darker Red on Hover */
+    transform: scale(1.05);
+    /* Slightly enlarge the button on hover */
+}
+
+button.delete:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(244, 67, 54, 0.6);
+    /* Glow effect on focus */
+}
+
+
+/* Optional: Styling for buttons when disabled */
+
+button:disabled {
+    background-color: #b0bec5;
+    cursor: not-allowed;
+}
+
+
+/* Edit and Delete Buttons */
+
+button.edit {
+    background-color: #4CAF50;
+    /* Green */
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.edit:hover {
+    background-color: #45a049;
+}
+
+button.delete {
+    background-color: #f44336;
+    /* Red */
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button.delete:hover {
+    background-color: #e53935;
+}

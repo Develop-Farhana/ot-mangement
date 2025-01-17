@@ -5,10 +5,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard</title>
+
     <link rel="stylesheet" href="css/admin-dash.css">
     <link rel="stylesheet" href="css/patient.css">
     <link rel="stylesheet" href="css/surger.css">
     <!-- Ensure you use only one stylesheet for styling -->
+    <style>
+        /* Styling for the widget */
+        
+        .widget-container {
+            position: fixed;
+            right: 20px;
+            top: 100px;
+            /* Adjust based on your design */
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            font-family: Arial, sans-serif;
+            display: none;
+        }
+        
+        .widget-container h3 {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+        }
+        
+        .widget-container p {
+            font-size: 1rem;
+            margin: 5px 0;
+        }
+        
+        .content-section {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,6 +54,14 @@
             <li><a href="javascript:void(0);" id="manage-surgeries-link">Manage Surgeries</a></li>
             <li><a href="javascript:void(0);" id="logout-link">Logout</a></li>
         </ul>
+    </div>
+
+    <!-- Widget Container for Totals -->
+    <div id="widget-container" class="widget-container">
+        <h3>Total Overview</h3>
+        <p id="total-doctors">Doctors: 0</p>
+        <p id="total-surgeries">Surgeries: 0</p>
+        <p id="total-patients">Patients: 0</p>
     </div>
 
     <!-- Main dashboard content -->
@@ -95,8 +136,6 @@
         <!-- Manage Surgeries Section -->
         <div id="manage-surgeries" class="content-section">
             <div class="container">
-
-
                 <!-- Form for adding surgery details -->
                 <form id="surgeryForm">
                     <input type="hidden" id="surgeryId" />
@@ -128,12 +167,12 @@
                             <th>Surgeon</th>
                             <th>Anesthesia Type</th>
                             <th>Surgery Duration</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
             </div>
-
         </div>
     </div>
 
@@ -146,6 +185,56 @@
     <script type="module" src="js/patient.js"></script>
     <script type="module" src="js/surgery.js"></script>
 
+    <script>
+        // Example of updating the widget with total counts (from Firebase or a mock function)
+        function updateWidget(totalDoctors, totalSurgeries, totalPatients) {
+            document.getElementById('total-doctors').textContent = `Doctors: ${totalDoctors}`;
+            document.getElementById('total-surgeries').textContent = `Surgeries: ${totalSurgeries}`;
+            document.getElementById('total-patients').textContent = `Patients: ${totalPatients}`;
+        }
+
+        // Function to show the widget when nothing is selected
+        function showWidgetOnEmpty() {
+            // Hide all content sections
+            document.querySelectorAll('.content-section').forEach(section => section.style.display = 'none');
+
+            // Show the widget
+            document.getElementById('widget-container').style.display = 'block';
+
+            // Example values for counts
+            const totalDoctors = 25; // You will fetch these from the database
+            const totalSurgeries = 50;
+            const totalPatients = 150;
+
+            // Update the widget with these values
+            updateWidget(totalDoctors, totalSurgeries, totalPatients);
+        }
+
+        // Call this function by default to show the widget when nothing is selected
+        showWidgetOnEmpty();
+
+        // Handle the navigation links
+        document.getElementById('manage-doctors-link').addEventListener('click', function() {
+            document.getElementById('widget-container').style.display = 'none';
+            document.getElementById('manage-doctors').style.display = 'block';
+            document.getElementById('manage-patients').style.display = 'none';
+            document.getElementById('manage-surgeries').style.display = 'none';
+        });
+
+        document.getElementById('manage-patients-link').addEventListener('click', function() {
+            document.getElementById('widget-container').style.display = 'none';
+            document.getElementById('manage-doctors').style.display = 'none';
+            document.getElementById('manage-patients').style.display = 'block';
+            document.getElementById('manage-surgeries').style.display = 'none';
+        });
+
+        document.getElementById('manage-surgeries-link').addEventListener('click', function() {
+            document.getElementById('widget-container').style.display = 'none';
+            document.getElementById('manage-doctors').style.display = 'none';
+            document.getElementById('manage-patients').style.display = 'none';
+            document.getElementById('manage-surgeries').style.display = 'block';
+        });
+    </script>
 </body>
 
 </html>

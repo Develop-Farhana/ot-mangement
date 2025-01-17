@@ -4,38 +4,260 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Doctor CRUD</title>
-    <link rel="stylesheet" href="css/doctor.css">
+    <title>Hospital</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            /* Default background */
+            transition: background-color 0.3s ease;
+        }
+        /* Navbar styles */
+        
+        .navbar {
+            display: flex;
+            background-color: #333;
+            padding: 0.5rem;
+        }
+        
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+        
+        .navbar a:hover {
+            background-color: #575757;
+        }
+        /* Banner section */
+        
+        .banner {
+            position: relative;
+            background-image: url('img/h1.jpg');
+            /* Add your banner image URL here */
+            background-size: cover;
+            background-position: center;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+        
+        .banner h1 {
+            position: absolute;
+            font-size: 3rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+            text-align: center;
+        }
+        
+        .banner img {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 50%;
+            object-fit: cover;
+            opacity: 0.5;
+        }
+        /* Content styles */
+        
+        .content {
+            padding: 1rem;
+        }
+        
+        .data-section {
+            display: none;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            margin-top: 1rem;
+            border-radius: 4px;
+        }
+        
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .doctor-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+        
+        .doctor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .doctor-card h4 {
+            margin: 0;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #007BFF;
+        }
+        
+        .doctor-card p {
+            margin: 5px 0;
+            font-size: 0.9rem;
+            color: #333;
+        }
+        /* Surgery cards container styling */
+        
+        .surgery-cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        /* Individual card styling */
+        
+        .surgery-cards-container .card {
+            background-color: #ffffff;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            width: 280px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        /* Hover effect for cards */
+        
+        .surgery-cards-container .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+        /* Title styling inside card */
+        
+        .surgery-cards-container .card h3 {
+            color: #007bff;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        /* Description styling inside card */
+        
+        .surgery-cards-container .card p {
+            color: #6c757d;
+            font-size: 16px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        /* Button styling inside card */
+        
+        .surgery-cards-container .card .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+        
+        .surgery-cards-container .card .btn:hover {
+            background-color: #0056b3;
+        }
+        
+        #section1 h1,
+        #section2 h1 {
+            font-size: 2.5rem;
+            /* Adjust the size of the heading */
+            font-weight: bold;
+            /* Make the text bold */
+            color: #333;
+            /* Set the text color */
+            margin-bottom: 20px;
+            /* Add space below the heading */
+            text-align: center;
+            /* Center the text */
+            font-family: 'Arial', sans-serif;
+            /* Set the font family */
+            text-transform: uppercase;
+            /* Make the text uppercase */
+            letter-spacing: 1px;
+            /* Add spacing between letters */
+        }
+    </style>
 </head>
 
 <body>
-    <div class="container">
-        <h2>Doctor Details</h2>
-
-        <!-- Form for adding/updating doctor details -->
-        <form id="doctor-form">
-            <input type="hidden" id="doctor-id">
-            <input type="text" id="doctor-name" placeholder="Doctor Name" required>
-            <input type="text" id="doctor-specialty" placeholder="Specialty" required>
-            <input type="text" id="doctor-phone" placeholder="Phone Number" required>
-            <button type="submit" id="submit-btn">Add Doctor</button>
-        </form>
-
-        <h3>Doctor List</h3>
-        <table id="doctor-table">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Specialty</th>
-                    <th>Phone Number</th>
-
-                </tr>
-            </thead>
-            <tbody id="doctor-list"></tbody>
-        </table>
+    <!-- Navbar -->
+    <div class="navbar">
+        <a onclick="showData('section1')">Doctor Details</a>
+        <a onclick="showData('section2')">Surgery Details</a>
+        <a onclick="showData('section3')">Other Details</a>
     </div>
 
-    <script type="module" src="js/doctor.js"></script>
+    <!-- Banner Section -->
+    <div class="banner">
+        <h1>Welcome to Our Healthcare Portal</h1>
+
+    </div>
+
+    <!-- Content Section -->
+    <div class="content">
+
+        <div id="section1" class="data-section">
+            <h1>Doctor Details</h1>
+            <div id="doctor-list" class="card-container">
+                <!-- Doctor cards will be dynamically inserted here -->
+            </div>
+        </div>
+        <div id="section2" class="data-section">
+            <h1>Surgery Details</h1>
+            <div class="container">
+                <!-- Cards to display surgery details -->
+                <div class="surgery-cards-container" id="surgeryCards">
+                    <!-- Cards will be dynamically injected here -->
+                </div>
+            </div>
+        </div>
+        <div id="section3" class="data-section">
+            <h2>Other Details</h2>
+            <p>Additional information and resources.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // Function to show data section
+        function showData(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.data-section').forEach(section => {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).style.display = 'block';
+
+            // Check if no section is visible and update background color
+            const visibleSection = Array.from(document.querySelectorAll('.data-section')).find(section => section.style.display === 'block');
+            if (!visibleSection) {
+                document.body.style.backgroundColor = '#f0f0f0'; // Default background
+            } else {
+                document.body.style.backgroundColor = '#e3f2fd'; // Change to a light blue when a section is visible
+            }
+        }
+
+        // Initially show the first section
+        showData('section1');
+    </script>
+
+    <script type="module" src="js/doct-details.js"></script>
+    <script type="module" src="js/surg-details.js"></script>
 </body>
 
 </html>

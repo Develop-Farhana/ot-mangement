@@ -83,15 +83,51 @@ async function loadSurgeryDetails() {
                 <td>${data.surgeon}</td>
                 <td>${data.anesthesiaType}</td>
                 <td>${data.surgeryDuration}</td>
-                
+                <td>
+                    <button class="edit" onclick="editSurgery('${surgeryId}')">Edit</button>
+                    <button class="delete" onclick="deleteSurgery('${surgeryId}')">Delete</button>
+                </td>
             `;
         });
     }
 }
 
+// Edit surgery details
+window.editSurgery = async function(surgeryId) {
+    const surgeryRef = ref(database, 'surgeryDetails/' + surgeryId);
+    try {
+        const snapshot = await get(surgeryRef);
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            surgeryTypeInput.value = data.surgeryType;
+            surgeryDateInput.value = data.surgeryDate;
+            surgeonInput.value = data.surgeon;
+            anesthesiaTypeInput.value = data.anesthesiaType;
+            surgeryDurationInput.value = data.surgeryDuration;
+            surgeryIdInput.value = surgeryId; // Set surgery ID for updating
+        } else {
+            alert('Surgery not found.');
+        }
+    } catch (error) {
+        console.error('Error fetching surgery data:', error);
+        alert('Failed to fetch surgery data. Please try again.');
+    }
+};
 
-
-
+// Delete surgery details
+window.deleteSurgery = async function(surgeryId) {
+    if (confirm('Are you sure you want to delete this surgery?')) {
+        const surgeryRef = ref(database, 'surgeryDetails/' + surgeryId);
+        try {
+            await remove(surgeryRef);
+            alert('Surgery deleted successfully');
+            loadSurgeryDetails(); // Reload surgery details after deletion
+        } catch (error) {
+            console.error('Error deleting surgery:', error);
+            alert('Failed to delete surgery. Please try again.');
+        }
+    }
+};
 
 // Load surgery details on page load
 loadSurgeryDetails();

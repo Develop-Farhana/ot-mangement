@@ -25,20 +25,42 @@ const doctorPhone = document.getElementById("doctor-phone");
 const doctorList = document.getElementById("doctor-list");
 const doctorId = document.getElementById("doctor-id");
 
-// Add doctor to Firebase
+// Add doctor to Firebase and immediately render the new doctor in the table
 function addDoctorToFirebase(name, specialty, phone) {
     const doctorRef = ref(database, 'doctors/' + Date.now());
     set(doctorRef, {
         name: name,
         specialty: specialty,
         phone: phone
+    }).then(() => {
+        // After adding the doctor, directly render the new doctor in the table
+        const newDoctor = {
+            name: name,
+            specialty: specialty,
+            phone: phone
+        };
+        renderDoctorRow(newDoctor, doctorRef.key); // Render the new row with the doctor
+    });
+}
+
+// Update doctor in Firebase
+function updateDoctorInFirebase(id, name, specialty, phone) {
+    const doctorRef = ref(database, 'doctors/' + id);
+    set(doctorRef, {
+        name: name,
+        specialty: specialty,
+        phone: phone
+    }).then(() => {
+        fetchDoctors(); // Re-fetch doctors to show updated data
     });
 }
 
 // Delete doctor from Firebase
 function deleteDoctorFromFirebase(id) {
     const doctorRef = ref(database, 'doctors/' + id);
-    remove(doctorRef);
+    remove(doctorRef).then(() => {
+        fetchDoctors(); // Re-fetch doctors after deletion
+    });
 }
 
 // Render doctors list as a table
@@ -53,7 +75,8 @@ function renderDoctorList(doctors) {
             <td>${doctor.specialty}</td>
             <td>${doctor.phone}</td>
             <td>
-                <button class="delete-btn" data-id="${id}">Delete</button>
+                <button class="edit-btn" data-id="${id}" style="background-color: green; color: white;">Edit</button>
+                <button class="delete-btn" data-id="${id}" style="background-color: red; color: white;">Delete</button>
             </td>
         `;
 
@@ -63,18 +86,61 @@ function renderDoctorList(doctors) {
             deleteDoctor(id);
         });
 
+        // Add event listener to the edit button
+        const editButton = tr.querySelector(".edit-btn");
+        editButton.addEventListener("click", () => {
+            editDoctor(id, doctor.name, doctor.specialty, doctor.phone);
+        });
+
         doctorList.appendChild(tr);
     }
+}
+
+// Function to render a single doctor row (for immediate display after adding)
+function renderDoctorRow(doctor, id) {
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+        <td>${doctor.name}</td>
+        <td>${doctor.specialty}</td>
+        <td>${doctor.phone}</td>
+        <td>
+            <button class="edit-btn" data-id="${id}" style="background-color: green; color: white;">Edit</button>
+            <button class="delete-btn" data-id="${id}" style="background-color: red; color: white;">Delete</button>
+        </td>
+    `;
+
+    // Add event listener to the delete button
+    const deleteButton = tr.querySelector(".delete-btn");
+    deleteButton.addEventListener("click", () => {
+        deleteDoctor(id);
+    });
+
+    // Add event listener to the edit button
+    const editButton = tr.querySelector(".edit-btn");
+    editButton.addEventListener("click", () => {
+        editDoctor(id, doctor.name, doctor.specialty, doctor.phone);
+    });
+
+    // Append the new row to the table
+    doctorList.appendChild(tr);
 }
 
 // Delete doctor
 function deleteDoctor(id) {
     deleteDoctorFromFirebase(id);
-    // After deletion, re-fetch and render the list
-    fetchDoctors();
 }
 
-// Handle form submission
+// Edit doctor
+function editDoctor(id, name, specialty, phone) {
+    doctorId.value = id;
+    doctorName.value = name;
+    doctorSpecialty.value = specialty;
+    doctorPhone.value = phone;
+    document.getElementById("submit-btn").textContent = "Update Doctor";
+}
+
+// Handle form submission (add or update doctor)
 doctorForm.addEventListener("submit", (e) => {
     e.preventDefault();
 

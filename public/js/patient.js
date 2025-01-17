@@ -84,26 +84,41 @@ async function loadPatients() {
 }
 
 // Edit patient
-function editPatient(patientId) {
+// Edit patient
+window.editPatient = async function(patientId) {
     const patientRef = ref(database, 'patients/' + patientId);
-    get(patientRef).then(snapshot => {
-        const data = snapshot.val();
-        nameInput.value = data.name;
-        ageInput.value = data.age;
-        medicalHistoryInput.value = data.medicalHistory;
-        patientIdInput.value = patientId;
-    });
-}
 
-// Delete patient
-async function deletePatient(patientId) {
+    try {
+        const snapshot = await get(patientRef);
+        if (snapshot.exists()) {
+            const data = snapshot.val();
+            nameInput.value = data.name;
+            ageInput.value = data.age;
+            medicalHistoryInput.value = data.medicalHistory;
+            patientIdInput.value = patientId; // Set patient ID to the hidden input for editing
+        } else {
+            alert('Patient not found.');
+        }
+    } catch (error) {
+        console.error('Error fetching patient data:', error);
+        alert('Failed to fetch patient data. Please try again.');
+    }
+};
+
+
+window.deletePatient = async function(patientId) {
     if (confirm('Are you sure you want to delete this patient?')) {
         const patientRef = ref(database, 'patients/' + patientId);
-        await remove(patientRef);
-        alert('Patient deleted successfully');
-        loadPatients(); // Reload patients list
+        try {
+            await remove(patientRef);
+            alert('Patient deleted successfully');
+            loadPatients(); // Reload patients list
+        } catch (error) {
+            console.error('Error deleting patient:', error);
+            alert('Failed to delete patient. Please try again.');
+        }
     }
-}
+};
 
 // Load patients on page load
 loadPatients();

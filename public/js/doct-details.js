@@ -42,7 +42,7 @@ function renderDoctorList(doctors) {
         card.classList.add("doctor-card");
 
         card.innerHTML = `
-            <h4><strong>Doctor:</strong>v${doctor.name}</h4>
+            <h4><strong>Doctor:</strong>${doctor.name}</h4>
             <p><strong>Specialty:</strong> ${doctor.specialty}</p>
             <p><strong>Phone Number:</strong> ${doctor.phone}</p>
         `;
